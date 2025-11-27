@@ -50,10 +50,14 @@ public abstract class MirroringAudioTrack extends ExtendedAudioTrack {
 			track = tracks.get(0);
 		}
 		if (track instanceof InternalAudioTrack) {
-			((InternalAudioTrack) track).setUserData(this.getUserData());
+         Map<String, Object> userData = this.getUserData() != null
+          ? new HashMap<>((Map<String, Object>) this.getUserData())
+          : new HashMap<>();
+
+      userData.put("mirrorUrl", ((InternalAudioTrack) track).getInfo().uri);
+     ((InternalAudioTrack) track).setUserData(userData);
 			var internalTrack = (InternalAudioTrack) track;
 			log.debug("Loaded track mirror from {} {}({}) ", internalTrack.getSourceManager().getSourceName(), internalTrack.getInfo().title, internalTrack.getInfo().uri);
-			this.trackInfo.getExtra().put("mirrorUrl", internalTrack.getInfo().uri);
 			processDelegate(internalTrack, executor);
 			return;
 		}
