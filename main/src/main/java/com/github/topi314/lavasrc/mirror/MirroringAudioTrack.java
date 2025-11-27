@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 
 import java.net.URI;
 import java.util.concurrent.CompletableFuture;
+import java.util.Map;
+import java.util.HashMap;
 
 public abstract class MirroringAudioTrack extends ExtendedAudioTrack {
 
