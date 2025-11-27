@@ -48,6 +48,10 @@ public class LavaSrcAudioPluginInfoModifier implements AudioPluginInfoModifier {
 			if (track instanceof SpotifyAudioTrack spotifyTrack) {
 				json.put("isLocal", JsonElementKt.JsonPrimitive(spotifyTrack.isLocal()));
 			}
+        var userData = extendedTrack.getUserData();
+        if (userData instanceof Map<?, ?> map && map.containsKey("mirrorUrl")) {
+            json.put("mirrorUrl", JsonElementKt.JsonPrimitive(map.get("mirrorUrl").toString()));
+        }
 
 			return new JsonObject(json);
 		}
